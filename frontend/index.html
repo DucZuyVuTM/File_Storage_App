@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- Using URL to display PDF, DOCX and Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <title>File Storage App</title>
+</head>
+<body>
+    <div id="app">
+        <h1>File Storage App</h1>
+        <div id="auth">
+            <input id="username" class="input" type="text" placeholder="Username">
+            <input id="password" class="input" type="password" placeholder="Password">
+            <div id="auth-btns">
+                <button id="register">Register</button>
+                <button id="login">Login</button>
+            </div>
+            <button id="deleteAccount">Delete Account</button>
+        </div>
+        <div id="fileActions" style="display: none;">
+            <h2 id="welcome-text">Welcome, <span id="welcomeUsername"></span></h2>
+            <label for="file" class="custom-file-upload">Choose File</label>
+            <input id="file" type="file" accept-charset="utf-8">
+            <button id="upload">Upload</button>
+            <div id="selectedFileName"></div>
+            <hr color="black">
+            <div class="filelist-title">
+                <img src="file.png" alt="" width="28px" hright="28px" style="display: inline; margin-right: 6.5px;">
+                <h2 style="display: inline-block; margin: 0px;">File List</h2>
+            </div>
+            <div id="fileList"></div>
+        </div>
+        <div id="fileViewerContainer" style="display: none;">
+            <h2 id="fileviewer-text">File Viewer</h2>
+            <h3 id="opened-fileviewer"></h3>
+            <div id="fileViewerContent"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
