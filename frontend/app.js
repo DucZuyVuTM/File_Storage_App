@@ -10,40 +10,27 @@ function openFile(file) {
 
     switch (fileExt) {
         case 'pdf':
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+            const viewerUrl = `/pdfjs/web/viewer.html?file=${fileUrl}`;
+            const iframe = document.createElement('iframe');
+            iframe.src = viewerUrl;
+            iframe.width = '100%';
+            iframe.height = '100%';
+            iframe.style.border = 'none';
+            iframe.style.minHeight = '400px';
+            iframe.allowFullscreen = true;
 
-            // Tạo một container để căn giữa canvas
-            const canvasContainer = document.createElement('div');
-            canvasContainer.style.display = 'flex';
-            canvasContainer.style.justifyContent = 'center'; // Căn giữa theo trục X
-            canvasContainer.appendChild(canvas);
+            // Đảm bảo responsive
+            iframe.style.maxWidth = '100%';
+            iframe.style.display = 'block';
 
-            fileViewerContent.appendChild(canvasContainer);
+            const iframeContainer = document.createElement('div');
+            iframeContainer.style.display = 'flex';
+            iframeContainer.style.justifyContent = 'center';
+            iframeContainer.style.alignItems = 'center';
+            iframeContainer.style.width = '100%';
+            iframeContainer.appendChild(iframe);
 
-            // Sử dụng PDF.js để tải và hiển thị PDF
-            fetch(fileUrl)
-                .then(response => response.arrayBuffer())
-                .then(data => {
-                    const loadingTask = pdfjsLib.getDocument(data);
-                    loadingTask.promise.then(pdf => {
-                        pdf.getPage(1).then(page => { // Hiển thị trang đầu tiên
-                            const scale = 1.5;
-                            const viewport = page.getViewport({ scale: scale });
-                            canvas.height = viewport.height;
-                            canvas.width = viewport.width;
-
-                            // Vẽ trang PDF lên canvas
-                            page.render({
-                                canvasContext: ctx,
-                                viewport: viewport
-                            });
-                        });
-                    });
-                })
-                .catch(error => {
-                    console.error('Error loading PDF:', error);
-                });
+            fileViewerContent.appendChild(iframeContainer);
             break;
         case 'jpg':
         case 'jpeg':
